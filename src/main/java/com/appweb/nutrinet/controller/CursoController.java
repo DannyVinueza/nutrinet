@@ -1,5 +1,5 @@
 package com.appweb.nutrinet.controller;
 
-public class CursosController {
+public class CursoController {
 
 }

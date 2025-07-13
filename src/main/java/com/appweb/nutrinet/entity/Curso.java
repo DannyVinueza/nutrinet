@@ -5,25 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @Entity
-@Table(name = "asistencias")
+@Table(name = "cursos")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Asistencia {
+public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String nombre;
+    private String descripcion;
+
     @ManyToOne
-    @JoinColumn(name = "id_estudiante", nullable = false)
-    private Estudiante estudiante;
-
-    private LocalDate fecha;
-
-    private Boolean presente = false;
-
-    private String observaciones;
+    @JoinColumn(name = "id_tutor")
+    private Usuario tutor;
 }

@@ -1,5 +1,5 @@
 package com.appweb.nutrinet.service;
 
-public interface UsuariosService {
+public interface CursoService {
 
 }

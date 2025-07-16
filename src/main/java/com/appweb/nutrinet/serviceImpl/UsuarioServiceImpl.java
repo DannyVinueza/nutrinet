@@ -5,6 +5,7 @@ import com.appweb.nutrinet.dto.UsuarioResDTO;
 import com.appweb.nutrinet.entity.Usuario;
 import com.appweb.nutrinet.repository.UsuarioRepository;
 import com.appweb.nutrinet.service.UsuarioService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     private UsuarioResDTO toResponse(Usuario usuario){
@@ -45,6 +48,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioResDTO crear(UsuarioReqDTO usuario) {
         Usuario user = fromRequest(usuario);
+
+        String contraseniaCodificada = passwordEncoder.encode(usuario.getContrasenia());
+        user.setContrasenia(contraseniaCodificada);
+
         usuarioRepository.save(user);
         return toResponse(user);
     }

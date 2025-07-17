@@ -3,6 +3,7 @@ package com.appweb.nutrinet.config;
 import com.appweb.nutrinet.security.CustomSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,6 +33,10 @@ public class SecurityConfig {
                         .requestMatchers("/coordinador/**").hasRole("COORDINADOR")
                         .requestMatchers("/padre/**").hasRole("PADRE")
                         .requestMatchers("/tutor/**").hasRole("TUTOR")
+                        
+                        .requestMatchers(HttpMethod.POST, "/usuarios").permitAll() // <-- ¡AÑADE ESTA LÍNEA AQUÍ!
+
+                        
                         .requestMatchers("/login", "/register", "/css/**", "/js/**", "/vendors/**", "/assets/**", "/favicon.ico").permitAll()
                         .anyRequest().authenticated()
                 )
